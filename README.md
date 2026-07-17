@@ -8,14 +8,18 @@ A secondary engine for Storyline 360 that streamlines tile-based movement in SCO
 - Easy map import template
 - Working exit/transition system between maps
 - A collision layer
-- container/pickup interactions
+- Container/pickup interactions
 - NPC textbox
+- Elevation-dependent collision maps
+
 
 ## Screenshots
+
 
 ## What This Isn't
 
 This is not a broader game engine. There's no support for 3D, currently no support for depth maps, sparse sprite management, and no physics engine.
+
 
 ## Authors
 
@@ -33,9 +37,11 @@ This is not a broader game engine. There's no support for 3D, currently no suppo
 
 Updating the necessary files requires administrator access. Learning designers and developers using corporate computers may find administrative roadblocks to updating these files and should confirm an update is possible before trying to set this up.
 
+
 ## Doggo Setup
 
 How to actually use Doggo — where the .js file goes, how to reference it in story.html, what the per-slide trigger needs to look like, and how loadMap() gets called.
+
 
 ### Download
 
@@ -50,6 +56,7 @@ The JavaScript files your Storyline uses are separated by the kind of player you
 
 Any scripts in there will automatically be added to your published output.
 
+
 ### Editing the HTML template
 
 Your course's index.html file will still need to know to make the script available, so navigate back up the Explorer hierarchy to 
@@ -57,21 +64,24 @@ Your course's index.html file will still need to know to make the script availab
 
 In that folder, you'll see an index.html. Open it in your editor of course, e.g., Visual Studio Code. To streamline the update, Run as Administrator.
 
-In the ```<head>``` of the index.html, add
-    ```<script src="html5/lib/scripts/doggo1.js"></script>```
+In the ```<head>``` of the index.html, add ```<script src="html5/lib/scripts/doggo1.js"></script>```, or whatever version of the script you've downloaded.
+
 
 ### Creating a bridge in Storyline
 
-While a lot of JavaScript will run out a script file like we've attached, scripts like these need some extra help using the object(), setVar(), and getVar() player functions of Storyline. Fortunately there's a one-step solution.
+While a lot of JavaScript will run out a script file like we've attached, Doggo need some extra help accessing Storyline's object(), setVar(), and getVar() player functions.
 
-While in your project, open the Master Slide for one of the map slides. Create an Execute JavaScript trigger trigger that runs when the timeline starts on the slide.
+While in your Storyline project, open the Master Slide for one of the slides you intend to add a map to. Create an Execute JavaScript trigger that runs when the timeline starts on the slide.
 
 Have it run:
 ```window.object = object;```
+
 ```window.getVar = getVar;```
+
 ```window.setVar = setVar;```
 
-That more or less "globalizes" the player function, enabling any script of ours to interface easily.
+That more or less "globalizes" the player functions, enabling any script of ours to interface with Storyline easily.
+
 
 ## Doggo Maps
 
@@ -84,6 +94,7 @@ That more or less "globalizes" the player function, enabling any script of ours 
 ## Feedback
 
 If you have any feedback, please reach out to me at doggo.go.engine@gmail.com.
+
 
 ## FAQ
 
