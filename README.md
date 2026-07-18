@@ -14,7 +14,7 @@ A secondary engine for Storyline 360 that streamlines tile-based movement in SCO
 
 
 ## Screenshots
-<img src=".image/readme/lava example.gif" alt="An animated dog moving around an illustrated cave">
+<img src="./img/readme/lava example.gif" alt="An animated dog moving around an illustrated cave">
 
 
 ## What This Isn't
