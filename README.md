@@ -14,6 +14,7 @@ A secondary engine for Storyline 360 that streamlines tile-based movement in SCO
 
 
 ## Screenshots
+<img src=".image/readme/lava example.gif" alt="An animated dog moving around an illustrated cave">
 
 
 ## What This Isn't
@@ -28,9 +29,7 @@ This is not a broader game engine. There's no support for 3D, currently no suppo
 
 ## Acknowledgements
 
- - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+ - [Cave/lava tileset from Art by Mr. Beast.](https://opengameart.org/content/cave-tileset-0)
 
 
 ## Requirements
@@ -44,7 +43,9 @@ How to actually use Doggo — where the .js file goes, how to reference it in st
 
 
 ### Download
+Have a look over in the [JavaScript folder](https://github.com/TheStaircaseProject/Doggo/tree/main/.js). At the time of writing, there's only one differentiated version and it's not hosted anywhere else.
 
+Right-click the doggo1.js file and Save As to your local desktop.
 
 
 ### Where to Put the .js File
