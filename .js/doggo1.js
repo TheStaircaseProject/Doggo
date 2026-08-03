@@ -110,47 +110,60 @@ if (!window.__mapEngineBooted) {
       default:
         return;
     }
+    // Gets the direction in which the learner wants to move.
     const dir = window.GameEngine.directions[direction];
+    // If this method was somehow called without a direction, cancel the move.
     if (!dir) return;
 
+    // Find the avatar object and get its current image state.
     const avatar = currentAvatar();
     avatar.state = `walk_${direction}`;
 
     const newGridX = s.currentGridX + dir.x;
     const newGridY = s.currentGridY + dir.y;
 
+    // See if there's an exit, and if so, make it so.
     if (checkExit(newGridX, newGridY)) return;
+
+    // See if the learner is entering a tile that change elevation, and if so, make it so.
     if (checkElevationLink(newGridX, newGridY, direction)) return;
 
-
+    // Cancel the move if the learner tries to move off the screen.
     if (newGridX < 0 || newGridX >= s.mapData.metadata.width ||
         newGridY < 0 || newGridY >= s.mapData.metadata.height) {
       return;
     }
 
+    // Otherwise, open the container, pickup the item, or show the speech.
     if (handleObjectInteraction(newGridX, newGridY)) return;
+
+    // Otherwise, check for any other collision and stop if found.
     if (checkCollision(newGridX, newGridY)) return;
 
+    // Animate the avatar to the new position.
     glideAvatarTo(newGridX, newGridY, direction);
 
   };
 
   // Advances the text in the dialogue layer.
   window.GameEngine.advanceDialogue = function() {
-    s.dialogueIndex++;
 
+    s.dialogueIndex++;
     if (s.dialogueIndex < s.dialogueQueue.length) {
       // More lines left — swap text in place, box stays open, timeline stays paused
+      console.log('Index less than dialogue queue length.');
       showCurrentLine();
     } else {
       // Last line was just cleared — this is the real "close" signal
+      setVar('advanceSpeech', false);
       setVar('advanceSpeech', true);
+      console.log('No more messages to show. Resume and end this layer.');
     }
   };
 
   window.GameEngine.endDialogue = function() {
-    // Called by Storyline at the very end of the layer's closing timeline, once the layer is fully hidden
-    setVar('npcSpeaks', false);
+    // Called by Storyline at the very end of the layer's closing timeline.
+    setVar('speech', false);
     setVar('advanceSpeech', false);
     s.mode = 'explore';
     s.dialogueQueue = [];
@@ -273,9 +286,14 @@ if (!window.__mapEngineBooted) {
   }
 
   function handleObjectInteraction(gridX, gridY) {
+    // Checks if there are any objects in the target square/
     const objectTileID = s.mapData.layers.objects[gridY][gridX];
+    // Skip this if there's no object.
     if (objectTileID === 0) return false;
-    
+    // [Code to define objects and how they should be handled]
+
+    // From the entire interactions block of your mapData, this finds the numbered interaction (containing type, 
+    // blocksMovement, and message) it searched at the top of the function.
     const interaction = s.mapData.interactions[objectTileID];
     if (!interaction) return false;
     
@@ -314,14 +332,17 @@ if (!window.__mapEngineBooted) {
   }
 
   function showCurrentLine() {
+    // Add an adjustable typewriter effect here.
     setVar('npcMessage', s.dialogueQueue[s.dialogueIndex]);
-    setVar('npcSpeaks', true);
+    setVar('speech', true);
   }
 
+  // Identifies the message or conversation, and then shows it.
   function talkToNPC(interaction) {
+    s.mode = 'dialogue';
+    // Loads the message or block of messages.
     s.dialogueQueue = Array.isArray(interaction.message) ? interaction.message : [interaction.message];
     s.dialogueIndex = 0;
-    s.mode = 'dialogue';
     showCurrentLine();
   }
 
